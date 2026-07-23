@@ -114,6 +114,7 @@ class GameLogger:
         self._last_available_gems: list[GemType] = []
         self._starting_hand: list[GemType] = []
         self._starting_coins: int = 0
+        self.not_revealed = list(GemType)
 
         # Session-level summary CSV
         self._summary_file: Any = None
