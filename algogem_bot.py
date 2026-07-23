@@ -109,20 +109,25 @@ class MyBot(AlgogemBot):
         Returns:
             Index of the card to reveal (0 to len(hand)-1).
         """
-        ind = -1
-        for avail_gem in self.available_gems:
-            if avail_gem in hand and avail_gem in self.not_revealed: #(make sure to check for if one is revealed but u have one more):
-            # hmm interesting there's no set data structure to hold the cards that you've revealed
-                ind = hand.index(self.available_gems)
-        # will run into an issue when two of same gem type in hand, one is revealed
-        else:
-            sorted_abundance = {k: v for (k,v) in self.revealed_cards.values.sort()}
-            for i in range(len(sorted_abundance)-1,-1,-1):
-                if sorted_abundance[i] in hand and sorted_abundance[i] in self.not_revealed:
-                    ind = hand.index(self.available_gems)
-                    self.on_card_revealed(self.player_id,i)
-        self.not_revealed.remove(hand[ind])
+                # ind = -1
+        # for avail_gem in self.available_gems:
+        #     if avail_gem in hand: #(make sure to check for if one is revealed but u have one more):
+        #     # hmm interesting there's no set data structure to hold the cards that you've revealed
+        #         ind = hand.index(self.available_gems)
+        # # will run into an issue when two of same gem type in hand, one is revealed
+        # else:
+        #     for gem in hand:
+        #         for k in self.revealed_cards:
+        #             if self.revealed_cards[gem] > max:
+                        
+        #     for i in range(len(sorted_abundance)-1,-1,-1):
+        #         if sorted_abundance[i] in hand:
+        #             ind = hand.index(self.available_gems)   
+        ind = random.randint(len(hand))           
+        self.on_card_revealed(self.player_id,ind)
         return ind
+
+
 
         raise NotImplementedError("Implement your reveal strategy here")
 
