@@ -68,6 +68,31 @@ class MyBot(AlgogemBot):
             - For loans: you can bid 0 up to coins + loan value
             - If your bid exceeds the allowed max, it defaults to 0
         """
+        gem1 = ""
+        gem2 = ""
+        bid = 0
+        if (auction_card.auction_type in ["treasure_1"]):
+            gem1 = available_gems[0].name
+                
+            numGemRevealed = self.revealed_cards[gem1]
+            print(numGemRevealed)
+            # will run into issue since a gem is double counted
+            secretGem = self.hand[gem1]
+            bid = 2 * (numGemRevealed + secretGem) + 1
+        if (auction_card.auction_type in ["treasure_2"]):
+            gem1 = available_gems[0].name
+            gem2 = available_gems[1].name
+            numGemRevealed1 = self.revealed_cards[gem1]
+            secretGem1 = self.hand[gem1]
+            numGemRevealed2 = self.revealed_cards[gem2]
+            secretGem2 = self.hand[gem2]
+            bid = 2 * (numGemRevealed1 + secretGem1 + numGemRevealed2 + secretGem2) + 1
+        elif (auction_card.auction_type in ["loan"]):
+            bid = 0.5 * auction_card.value
+        elif (auction_card.auction_type in ["invest"]):
+            bid = 0.5 * auction_card.value
+        return bid
+
         raise NotImplementedError("Implement your bidding strategy here")
 
     def choose_card_to_reveal(self, hand: list[GemType]) -> int:
